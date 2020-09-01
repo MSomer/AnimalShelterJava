@@ -28,6 +28,7 @@ public class Main {
         //Reserving the animals
         printAllAnimals();
         reserveAnimal();
+        printAllAnimals();
     }
     private static void createAnimal(){
         System.out.println("Enter animal species Dog/Cat?");
@@ -41,7 +42,7 @@ public class Main {
     private static void reserveAnimal(){
         System.out.println("Type number of the preferred animal to reserve");
         String prefferedAnimalToReserve = scn.nextLine();
-        Animal animalToReserve = reservation.animals.get(reservation.animals.indexOf(prefferedAnimalToReserve));
+        Animal animalToReserve = (Animal) reservation.animals.stream().filter(animal -> prefferedAnimalToReserve.equals(animal.name)).findFirst().orElse(null);
         if(animalToReserve != null){
             System.out.println("Name of reserver");
             String reserverName = scn.nextLine();
@@ -50,7 +51,6 @@ public class Main {
         else{
             System.out.println("Animal not found");
         }
-
     }
     private static void createNewAnimalSpecies(){
         if(animalSpecies.equals("Dog")){

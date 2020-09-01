@@ -24,7 +24,7 @@ public class Animal {
         String reserved = "not reserved";
         if (this.reservedBy != null)
         {
-            reserved = "reserved by "+reservedBy+"";
+            reserved = "reserved by "+reservedBy.name+"";
         }
         return ""+name+", "+gender+", "+reserved+"";
     }
