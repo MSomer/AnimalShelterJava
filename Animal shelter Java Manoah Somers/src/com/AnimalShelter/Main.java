@@ -6,10 +6,7 @@ public class Main {
 
     private static Scanner scn;
     private static Reservation reservation;
-
-    private static String animalSpecies;
-    private static String animalName;
-    private static String animalGender;
+    private static AnimalCreator animalCreator;
 
     private static boolean addAnimalMode=true;
     private static boolean reserveAnimalMode = false;
@@ -17,10 +14,12 @@ public class Main {
     public static void main(String[] args) {
         scn = new Scanner(System.in);
         reservation = new Reservation();
+        animalCreator = new AnimalCreator(reservation);
         //Adding the animals
         while(addAnimalMode){
-            createAnimal();
+            animalCreator.createAnimal();
             System.out.println("Add another animal?");
+            //TODO Change boolean input to yes/no input.
             addAnimalMode = scn.nextBoolean();
             scn.nextLine();
         }
@@ -32,21 +31,16 @@ public class Main {
             printAllAnimals();
         }
     }
-    private static void createAnimal(){
-        System.out.println("Enter animal species Dog/Cat?");
-        animalSpecies = (scn.nextLine());
-        System.out.println("Enter animal name:");
-        animalName = (scn.nextLine());
-        System.out.println("Animal gender:");
-        animalGender = (scn.nextLine());
-        Main.createNewAnimalSpecies();
-    }
+
     private static void reserveAnimal(){
         System.out.println("Type number of the preferred animal to reserve");
-        String prefferedAnimalToReserve = scn.nextLine();
-        Animal animalToReserve = (Animal) reservation.animals.stream().filter(animal -> prefferedAnimalToReserve.equals(animal.name)).findFirst().orElse(null);
+        int prefferedAnimalToReserve = scn.nextInt();
+        scn.nextLine();
+        //Animal animalToReserve = (Animal) reservation.animals.stream().filter(animal -> prefferedAnimalToReserve.equals(animal.name)).findFirst().orElse(null);
+        if(prefferedAnimalToReserve-1 > reservation.animals.stream().count()-1||prefferedAnimalToReserve-1<0){System.out.println("Enter a valid number");return;}
+        Animal animalToReserve = reservation.animals.get(prefferedAnimalToReserve-1);
         if(animalToReserve != null){
-            System.out.println("Name of reserver");
+            System.out.println("Name of booker");
             String reserverName = scn.nextLine();
             animalToReserve.reserve(reserverName);
         }
@@ -54,35 +48,11 @@ public class Main {
             System.out.println("Animal not found");
         }
     }
-    private static void createNewAnimalSpecies(){
-        if(animalSpecies.equals("Dog")){
-            reservation.newDog(animalName, Main.determineGender() );
-        }
-        else if(animalSpecies.equals("Cat")){
-            System.out.println("BadHabits of animal:");
-            reservation.newCat(animalName, Main.determineGender(), (scn.nextLine()));
-        }
-        else{
-            System.out.println("Invalid input of animal species.");
-        }
-    }
-    private static Gender determineGender(){
-        Gender genderOfAnimal = null;
-        if(animalGender.equals("male")){
-            return genderOfAnimal.male;
-        }
-        else if(animalGender.equals("female")){
-            return genderOfAnimal.female;
-        }
-        else{
-            System.out.println("Invalid input of gender");
-            return null;
-        }
-    }
+
     private static void printAllAnimals(){
         if(reservation.animals.stream().count()>0) {
             reservation.animals.forEach(animal -> {
-                System.out.println(animal);
+                System.out.println(reservation.animals.indexOf(animal)+1+" "+animal);
             });
         }
         else {

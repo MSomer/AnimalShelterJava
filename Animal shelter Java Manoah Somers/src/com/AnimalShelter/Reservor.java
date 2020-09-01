@@ -11,6 +11,4 @@ public class Reservor {
         this.name = name;
         this.reservedAt = date;
     }
-
-
 }

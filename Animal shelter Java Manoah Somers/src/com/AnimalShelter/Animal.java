@@ -10,6 +10,7 @@ public abstract class Animal {
     public Animal(String _name, Gender _gender){
         this.name = _name;
         this.gender = _gender;
+
     }
 
     public boolean reserve(String reservedBy){
