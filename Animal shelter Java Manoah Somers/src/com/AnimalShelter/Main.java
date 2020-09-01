@@ -15,20 +15,42 @@ public class Main {
         scn = new Scanner(System.in);
         reservation = new Reservation();
         animalCreator = new AnimalCreator(reservation);
-        //Adding the animals
-        while(addAnimalMode){
-            animalCreator.createAnimal();
-            System.out.println("Add another animal?");
-            //TODO Change boolean input to yes/no input.
-            addAnimalMode = scn.nextBoolean();
-            scn.nextLine();
-        }
-        //Reserving the animals
-        reserveAnimalMode = true;
-        printAllAnimals();
-        while (reserveAnimalMode) {
-            reserveAnimal();
-            printAllAnimals();
+
+        while(true){
+            System.out.println("Choose mode: \n Add animal \n reserve animal");
+            switch (scn.nextLine().toLowerCase()) {
+                //Adding the animals
+                case "add animal":
+                    while (true) {
+                        animalCreator.createAnimal();
+                        System.out.println("Add another animal?");
+                        //TODO Change boolean input to yes/no input.
+                        addAnimalMode = scn.nextBoolean();
+                        scn.nextLine();
+                        if (!addAnimalMode) {
+                            break;
+                        }
+                    }
+                    break;
+                //Reserving the animals
+                case "reserve animal":
+                    while (true) {
+                        printAllAnimals();
+                        reserveAnimal();
+                        System.out.println("Reserve another animal?");
+                        //TODO Change boolean input to yes/no input.
+                        reserveAnimalMode = scn.nextBoolean();
+                        scn.nextLine();
+                        if (!reserveAnimalMode) {
+                            break;
+                        }
+                    }
+                    break;
+                //Default case
+                default:
+                    System.out.println("Command not recognised.");
+                    break;
+            }
         }
     }
 
