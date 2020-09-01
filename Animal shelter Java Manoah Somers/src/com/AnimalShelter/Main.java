@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Main {
 
     private static Scanner scn;
-    private static Animal newAnimal;
     private static Reservation reservation;
 
     private static String animalSpecies;
@@ -26,9 +25,12 @@ public class Main {
             scn.nextLine();
         }
         //Reserving the animals
+        reserveAnimalMode = true;
         printAllAnimals();
-        reserveAnimal();
-        printAllAnimals();
+        while (reserveAnimalMode) {
+            reserveAnimal();
+            printAllAnimals();
+        }
     }
     private static void createAnimal(){
         System.out.println("Enter animal species Dog/Cat?");
@@ -54,25 +56,38 @@ public class Main {
     }
     private static void createNewAnimalSpecies(){
         if(animalSpecies.equals("Dog")){
-            reservation.newDog(animalName, Main.fixGender() );
+            reservation.newDog(animalName, Main.determineGender() );
+        }
+        else if(animalSpecies.equals("Cat")){
+            System.out.println("BadHabits of animal:");
+            reservation.newCat(animalName, Main.determineGender(), (scn.nextLine()));
         }
         else{
-            System.out.println("BadHabits of animal:");
-            reservation.newCat(animalName, Main.fixGender(), (scn.nextLine()));
+            System.out.println("Invalid input of animal species.");
         }
     }
-    private static Gender fixGender(){
+    private static Gender determineGender(){
         Gender genderOfAnimal = null;
-        if(animalGender == "male"){
+        if(animalGender.equals("male")){
             return genderOfAnimal.male;
         }
-        else{
+        else if(animalGender.equals("female")){
             return genderOfAnimal.female;
+        }
+        else{
+            System.out.println("Invalid input of gender");
+            return null;
         }
     }
     private static void printAllAnimals(){
-        reservation.animals.forEach(animal -> {
-            System.out.println(animal);
-        });
+        if(reservation.animals.stream().count()>0) {
+            reservation.animals.forEach(animal -> {
+                System.out.println(animal);
+            });
+        }
+        else {
+            System.out.println("No animals added.");
+            reserveAnimalMode = false;
+        }
     }
 }

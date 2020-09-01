@@ -2,7 +2,7 @@ package com.AnimalShelter;
 
 import java.time.LocalDate;
 
-public class Animal {
+public abstract class Animal {
     public String name;
     public Gender gender;
     public Reservor reservedBy;
@@ -19,13 +19,13 @@ public class Animal {
         }
         return false;
     }
-    //public override string Tostring
+
     public String toString(){
         String reserved = "not reserved";
         if (this.reservedBy != null)
         {
             reserved = "reserved by "+reservedBy.name+"";
         }
-        return ""+name+", "+gender+", "+reserved+"";
+        return name+", "+gender+", "+reserved+"";
     }
 }
