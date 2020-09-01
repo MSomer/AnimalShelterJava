@@ -21,12 +21,5 @@ public class SellableItem implements ISellable {
     }
 
     @Override
-    public double getPrice() {
-        return price;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
+    public String toString() {return "Name of item: "+name+", Price of item: "+price;}
 }

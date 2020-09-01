@@ -44,7 +44,7 @@ public class Webshop {
         if(itemsInWebshop.stream().count() == 0){System.out.println("No products found.");webshopEmpty=true;return;}
         webshopEmpty = false;
         itemsInWebshop.forEach(item ->
-                System.out.println(itemsInWebshop.indexOf(item)+ " " + item.getName() + " " + item.getPrice() + "\r\n")
+                System.out.println(itemsInWebshop.indexOf(item)+ item.toString() + "\r\n")
         );
     }
     //TODO Make sure input is correct
@@ -54,7 +54,7 @@ public class Webshop {
         //TODO If needed here actual buying of item.
         SellableItem itemToBuy = itemsInWebshop.get(scn.nextInt());
         scn.nextLine();
-        System.out.println("Are you sure you want to buy "+itemToBuy.getName()+" for "+itemToBuy.getPrice());
+        System.out.println("Are you sure you want to buy: "+itemToBuy.toString()+"?");
         while(true){
             String userInput = scn.nextLine();
             if(userInput.toLowerCase().equals("yes")){

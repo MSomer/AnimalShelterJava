@@ -10,6 +10,7 @@ public class Dog extends Animal {
     public Dog(String name, Gender gender){
         super(name, gender);
         this.lastWalk = LocalDate.now();
+        price = calculatePrice();
     }
 
     public boolean needsWalk(){
@@ -19,5 +20,20 @@ public class Dog extends Animal {
     @Override
     public String toString(){
         return super.toString()+", last walk: "+lastWalk+"";
+    }
+
+    @Override
+    public void updatePrice(double price) {
+        System.out.println("Not available");
+    }
+
+    @Override
+    public void updateName(String newName) {
+        System.out.println("Not available");
+    }
+    private double calculatePrice(){
+        double priceOfDog = 500 - (AnimalCreator.numberOfDogs * 50);
+        if(priceOfDog < 50) return 50;
+        return priceOfDog;
     }
 }

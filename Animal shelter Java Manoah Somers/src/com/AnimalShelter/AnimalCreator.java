@@ -10,6 +10,7 @@ public class AnimalCreator {
     private static String animalSpecies;
     private static String animalName;
     private static String animalGender;
+    public static int numberOfDogs=-1;
 
     public AnimalCreator(Reservation reservation){
         scn = new Scanner(System.in);
@@ -27,6 +28,7 @@ public class AnimalCreator {
     }
     private void createNewAnimal(){
         if(animalSpecies.equals("Dog")){
+            numberOfDogs++;
             reservation.newDog(animalName, determineGender() );
         }
         else if(animalSpecies.equals("Cat")){
