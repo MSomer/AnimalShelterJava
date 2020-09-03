@@ -7,9 +7,6 @@ public class AnimalCreator {
     private static Scanner scn;
     private static Reservation reservation;
 
-    private static String animalSpecies;
-    private static String animalName;
-    private static String animalGender;
     public static int numberOfDogs=-1;
 
     public AnimalCreator(Reservation reservation){
@@ -17,29 +14,28 @@ public class AnimalCreator {
         this.reservation = reservation;
     }
 
-    public void createAnimal(){
+    public void createAnimalSpecifications(){
         System.out.println("Enter animal species Dog/Cat?");
-        animalSpecies = (scn.nextLine());
+        String animalSpecies = (scn.nextLine());
         System.out.println("Enter animal name:");
-        animalName = (scn.nextLine());
+        String animalName = (scn.nextLine());
         System.out.println("Animal gender:");
-        animalGender = (scn.nextLine());
-        createNewAnimal();
+        createNewAnimal(animalSpecies, animalName, determineGender((scn.nextLine())));
     }
-    private void createNewAnimal(){
-        if(animalSpecies.equals("Dog")){
+    private void createNewAnimal(String animalSpecies, String animalName, Gender animalGender){
+        if(animalSpecies.equals("Dog") && animalGender != null){
             numberOfDogs++;
-            reservation.newDog(animalName, determineGender() );
+            reservation.newDog(animalName, animalGender);
         }
-        else if(animalSpecies.equals("Cat")){
+        else if(animalSpecies.equals("Cat") && animalGender != null){
             System.out.println("BadHabits of animal:");
-            reservation.newCat(animalName, determineGender(), (scn.nextLine()));
+            reservation.newCat(animalName, animalGender, (scn.nextLine()));
         }
         else{
             System.out.println("Invalid input of animal species.");
         }
     }
-    private Gender determineGender(){
+    private Gender determineGender(String animalGender){
         Gender genderOfAnimal = null;
         if(animalGender.equals("male")){
             return genderOfAnimal.male;

@@ -7,12 +7,14 @@ public class Main {
     private static Scanner scn;
     private static Reservation reservation;
     private static AnimalCreator animalCreator;
+    private static AnimalReserver animalReserver;
     private static Webshop webshop;
 
     public static void main(String[] args) {
         scn = new Scanner(System.in);
         reservation = new Reservation();
         animalCreator = new AnimalCreator(reservation);
+        animalReserver = new AnimalReserver(reservation);
         webshop = new Webshop();
 
         while(true){
@@ -21,7 +23,7 @@ public class Main {
                 //Adding the animals
                 case "add animal":
                     while (true) {
-                        animalCreator.createAnimal();
+                        animalCreator.createAnimalSpecifications();
                         System.out.println("Add another animal?");
                         //TODO Change boolean input to yes/no input.
                         if (!scn.nextBoolean()) {
@@ -36,7 +38,7 @@ public class Main {
                     while (true) {
                         if(reservation.animals.stream().count()<=0) {System.out.println("No animals added."); break;}
                         printAllAnimals();
-                        reserveAnimal();
+                        animalReserver.reserveAnimal();
                         System.out.println("Reserve another animal?");
                         //TODO Change boolean input to yes/no input.
                         if (!scn.nextBoolean()) {
@@ -57,23 +59,6 @@ public class Main {
                     System.out.println("Command not found.");
                     break;
             }
-        }
-    }
-
-    private static void reserveAnimal(){
-        System.out.println("Type number of the preferred animal to reserve");
-        int prefferedAnimalToReserve = scn.nextInt();
-        scn.nextLine();
-        //Animal animalToReserve = (Animal) reservation.animals.stream().filter(animal -> prefferedAnimalToReserve.equals(animal.name)).findFirst().orElse(null);
-        if(prefferedAnimalToReserve-1 > reservation.animals.stream().count()-1||prefferedAnimalToReserve-1<0){System.out.println("Enter a valid number");return;}
-        Animal animalToReserve = reservation.animals.get(prefferedAnimalToReserve-1);
-        if(animalToReserve != null){
-            System.out.println("Name of booker");
-            String reserverName = scn.nextLine();
-            animalToReserve.reserve(reserverName);
-        }
-        else{
-            System.out.println("Animal not found");
         }
     }
 
