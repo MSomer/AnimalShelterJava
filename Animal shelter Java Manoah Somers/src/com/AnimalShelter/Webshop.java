@@ -47,12 +47,18 @@ public class Webshop {
                 System.out.println(itemsInWebshop.indexOf(item)+ item.toString() + "\r\n")
         );
     }
-    //TODO Make sure input is correct
     private void buyItem(){
         System.out.println("Entered buy item mode.");
         System.out.println("Type number of item to buy.");
         //TODO If needed here actual buying of item.
-        SellableItem itemToBuy = itemsInWebshop.get(scn.nextInt());
+        SellableItem itemToBuy;
+        try{
+            itemToBuy = itemsInWebshop.get(scn.nextInt());
+        }
+        catch (NumberFormatException ex){
+            System.out.println("Enter a number.");
+            return;
+        }
         scn.nextLine();
         System.out.println("Are you sure you want to buy: "+itemToBuy.toString()+"?");
         while(true){
@@ -75,9 +81,10 @@ public class Webshop {
         System.out.println("Name of item:");
         String name = scn.nextLine();
         System.out.println("Price of item");
-        double price = scn.nextDouble();
-        scn.nextLine();
-        itemsInWebshop.add(new SellableItem(name, price));
+        String priceInput = scn.nextLine();
+        if(checkPriceInput(priceInput)){
+            itemsInWebshop.add(new SellableItem(name, Double.parseDouble(priceInput)));
+        }
     }
     private void editItem(){
         System.out.println("Entered edit item mode.");
@@ -85,9 +92,22 @@ public class Webshop {
         SellableItem itemToEdit = itemsInWebshop.get(scn.nextInt());
         scn.nextLine();
         System.out.println("New name of item:");
-        itemToEdit.updateName(scn.nextLine());
+        String updatedName = scn.nextLine();
         System.out.println("New price of item:");
-        itemToEdit.updatePrice(scn.nextDouble());
-        scn.nextLine();
+        String updatedPrice = scn.nextLine();
+        if(checkPriceInput(updatedPrice)){
+            itemToEdit.updateName(updatedName);
+            itemToEdit.updatePrice(Double.parseDouble(updatedPrice));
+        }
+    }
+    private boolean checkPriceInput(String priceInput){
+        try{
+            Double.parseDouble(priceInput);
+            return true;
+        }
+        catch (NumberFormatException ex){
+            System.out.println("Invalid price entered.");
+        }
+        return false;
     }
 }
