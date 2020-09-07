@@ -1,4 +1,4 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Webshop;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +14,7 @@ public class Webshop {
         itemsInWebshop = new ArrayList<>();
         scn = new Scanner(System.in);
     }
+    
     public void menu(){
         while(webshopActive){
             System.out.println("WEBSHOP: \n Buy item \n Add item \n Edit item \n exit");
@@ -40,7 +41,7 @@ public class Webshop {
             }
         }
     }
-    private void retrieveItems(){
+    public void retrieveItems(){
         if(itemsInWebshop.stream().count() == 0){System.out.println("No products found.");webshopEmpty=true;return;}
         webshopEmpty = false;
         itemsInWebshop.forEach(item ->

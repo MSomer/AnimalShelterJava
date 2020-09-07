@@ -1,5 +1,10 @@
 package com.AnimalShelter;
 
+import com.AnimalShelter.Animal.AnimalCreator;
+import com.AnimalShelter.Animal.AnimalReserver;
+import com.AnimalShelter.Animal.Reservation;
+import com.AnimalShelter.Webshop.Webshop;
+
 import java.util.Scanner;
 
 public class Main {
@@ -22,37 +27,16 @@ public class Main {
             switch (scn.nextLine().toLowerCase()) {
                 //Adding the animals
                 case "add animal":
-                    while (true) {
-                        animalCreator.createAnimalSpecifications();
-                        System.out.println("Add another animal?");
-                        //TODO Change boolean input to yes/no input.
-                        if (!scn.nextBoolean()) {
-                            scn.nextLine();
-                            break;
-                        }
-                        scn.nextLine();
-                    }
+                    animalCreator.createAnimalSpecifications();
                     break;
                 //Reserving the animals
                 case "reserve animal":
-                    while (true) {
-                        if(reservation.animals.stream().count()<=0) {System.out.println("No animals added."); break;}
-                        printAllAnimals();
-                        animalReserver.reserveAnimal();
-                        System.out.println("Reserve another animal?");
-                        //TODO Change boolean input to yes/no input.
-                        if (!scn.nextBoolean()) {
-                            scn.nextLine();
-                            break;
-                        }
-                        scn.nextLine();
-                    }
+                    if(reservation.getAnimals().stream().count()<=0) {System.out.println("No animals added."); break;}
+                    printAllAnimals();
+                    animalReserver.chooseAnimalToReserve();
                     break;
                 case "webshop":
-                    while(true){
-                        webshop.menu();
-                        break;
-                    }
+                    webshop.menu();
                     break;
                 //Default case
                 default:
@@ -63,8 +47,8 @@ public class Main {
     }
 
     private static void printAllAnimals(){
-        reservation.animals.forEach(animal -> {
-            System.out.println(reservation.animals.indexOf(animal)+1+" "+animal);
+        reservation.getAnimals().forEach(animal -> {
+            System.out.println(reservation.getAnimals().indexOf(animal)+1+" "+animal);
         });
     }
 }

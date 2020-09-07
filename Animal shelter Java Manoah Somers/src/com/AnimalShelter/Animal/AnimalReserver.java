@@ -1,4 +1,4 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Animal;
 
 import java.util.Scanner;
 
@@ -12,23 +12,25 @@ public class AnimalReserver {
         this.reservation = reservation;
     }
 
-    public void reserveAnimal(){
+    public void chooseAnimalToReserve(){
         System.out.println("Type number of the preferred animal to reserve");
-        int prefferedAnimalToReserve;
         try{
-            prefferedAnimalToReserve = Integer.parseInt(scn.nextLine());
+            reserveAnimal(Integer.parseInt(scn.nextLine()));
         }
         catch (NumberFormatException ex){
             System.out.println("Enter a number.");
             return;
         }
         //Animal animalToReserve = (Animal) reservation.animals.stream().filter(animal -> prefferedAnimalToReserve.equals(animal.name)).findFirst().orElse(null);
-        if(prefferedAnimalToReserve-1 > reservation.animals.stream().count()-1||prefferedAnimalToReserve-1<0){System.out.println("Enter a valid number");return;}
-        Animal animalToReserve = reservation.animals.get(prefferedAnimalToReserve-1);
+    }
+    public void reserveAnimal(int indexOfPrefferdAnimal){
+        if(indexOfPrefferdAnimal-1 > reservation.getAnimals().stream().count()-1||indexOfPrefferdAnimal-1<0){System.out.println("Enter a valid number");return;}
+        var animalToReserve = reservation.getAnimals().get(indexOfPrefferdAnimal-1);
         if(animalToReserve != null){
             System.out.println("Name of booker");
             String reserverName = scn.nextLine();
-            animalToReserve.reserve(reserverName);
+            reservation.reserveAnimal(indexOfPrefferdAnimal-1, reserverName);
+            //animalToReserve.reserve(reserverName);
         }
         else{
             System.out.println("Animal not found");

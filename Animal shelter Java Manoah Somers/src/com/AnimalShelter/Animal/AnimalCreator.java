@@ -1,4 +1,4 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Animal;
 
 import java.util.Scanner;
 
@@ -22,12 +22,12 @@ public class AnimalCreator {
         System.out.println("Animal gender:");
         createNewAnimal(animalSpecies, animalName, determineGender((scn.nextLine())));
     }
-    private void createNewAnimal(String animalSpecies, String animalName, Gender animalGender){
-        if(animalSpecies.equals("Dog") && animalGender != null){
+    public void createNewAnimal(String animalSpecies, String animalName, Gender animalGender){
+        if(animalSpecies.toLowerCase().equals("dog") && animalGender != null){
             numberOfDogs++;
             reservation.newDog(animalName, animalGender);
         }
-        else if(animalSpecies.equals("Cat") && animalGender != null){
+        else if(animalSpecies.toLowerCase().equals("cat") && animalGender != null){
             System.out.println("BadHabits of animal:");
             reservation.newCat(animalName, animalGender, (scn.nextLine()));
         }

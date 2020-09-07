@@ -1,4 +1,6 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Webshop;
+
+import com.AnimalShelter.ISellable;
 
 public class SellableItem implements ISellable {
 

@@ -1,17 +1,18 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Animal;
+
+import com.AnimalShelter.ISellable;
 
 import java.time.LocalDate;
 
 public abstract class Animal implements ISellable {
-    public String name;
-    public Gender gender;
-    public Reservor reservedBy;
-    public double price;
+    private String name;
+    private Gender gender;
+    private Reservor reservedBy;
+    private double price;
 
     public Animal(String _name, Gender _gender){
         this.name = _name;
         this.gender = _gender;
-
     }
 
     public boolean reserve(String reservedBy){
@@ -26,8 +27,10 @@ public abstract class Animal implements ISellable {
         String reserved = "not reserved";
         if (this.reservedBy != null)
         {
-            reserved = "reserved by "+reservedBy.name+"";
+            reserved = "reserved by "+reservedBy.getName()+"";
         }
         return name+", "+gender+", "+reserved+", price:"+price;
     }
+    public double getPrice(){return price; }
+    public void setPrice(double price){this.price = price;}
 }

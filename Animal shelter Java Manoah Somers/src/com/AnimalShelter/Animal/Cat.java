@@ -1,13 +1,12 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Animal;
 
-//Cat is the same as in VS
 public class Cat extends Animal {
-    public String badHabits;
+    private String badHabits;
 
     public Cat(String name, Gender gender, String _badHabits){
         super(name, gender);
         this.badHabits = _badHabits;
-        price = calculatePrice();
+        setPrice(calculatePrice());
     }
     @Override
     public String toString()
@@ -24,6 +23,7 @@ public class Cat extends Animal {
     public void updateName(String newName) {
         System.out.println("Not available");
     }
+
     private double calculatePrice(){
         double priceOfCatAfterBadHabitPenalty = 350 - (badHabits.length() * 20);
         if(priceOfCatAfterBadHabitPenalty < 35) return 35;

@@ -1,4 +1,4 @@
-package com.AnimalShelter;
+package com.AnimalShelter.Animal;
 
 public enum Gender{
     male,
